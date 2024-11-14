@@ -1,4 +1,4 @@
-# Tournament Bracket Generator fro Spectre Divide
+# Tournament Bracket Generator for Spectre Divide
 
 A React-based tournament bracket visualization and export system, designed to work alongside the Divide Cup Discord Bot. This project generates high-quality tournament bracket images for esports competitions.
 
