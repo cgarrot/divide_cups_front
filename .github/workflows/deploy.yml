@@ -1,0 +1,31 @@
+name: Deploy Bracket API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        script: |
+          cd ~/divide_cups_front
+          git reset --hard
+          git pull origin main
+
+          # Rebuild the Docker image
+          docker compose build --no-cache bracket-api
+
+          # Start the containers
+          docker compose up -d
+
+          # Wait for the container to start and then check logs
+          sleep 4
+          docker compose logs bracket-api
